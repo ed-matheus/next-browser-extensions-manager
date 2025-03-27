@@ -1,11 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import data from "@/data.json";
+import { useState } from "react";
 
 // Components
 import ExtensionCard from "../components/ExtensionCard";
+import FilterButton from "@/components/FilterButton";
 
 export default function Home() {
-	// Resgatando dados do arquivo JSON local (data.json)
+	const [activeFilter, setActiveFilter] = useState("all");
+
+	// Getting data from the data.json file
 	const extensionData = data;
 
 	return (
@@ -21,37 +27,24 @@ export default function Home() {
 				/>
 			</header>
 
+			{/* The filter */}
 			<div className="w-full text-center mb-10">
 				<h1 className="font-bold text-neutral-900">Extensions List</h1>
 				<div className="flex justify-around">
-					<button
-						type="button"
-						className="bg-neutral-0 rounded-3xl py-4 px-6 shadow"
-					>
-						All
-					</button>
-					<button
-						type="button"
-						className="bg-neutral-0 rounded-3xl py-4 px-6 shadow"
-					>
-						Active
-					</button>
-					<button
-						type="button"
-						className="bg-neutral-0 rounded-3xl py-4 px-6 shadow"
-					>
-						Inactive
-					</button>
+					<FilterButton text="All" isActive={activeFilter === "all"} onClick={() => setActiveFilter("all")} />
+					<FilterButton text="Active" isActive={activeFilter === "active"} onClick={() => setActiveFilter("active")} />
+					<FilterButton text="Inactive" isActive={activeFilter === "inactive"} onClick={() => setActiveFilter("inactive")} />
 				</div>
 			</div>
 
+			{/* Displaying all the cards */}
 			{extensionData.map((extension) => (
 				<ExtensionCard
 					key={extension.id}
 					name={extension.name}
 					description={extension.description}
 					icon={extension.logo}
-          isActive={extension.isActive}
+					isActive={extension.isActive}
 				/>
 			))}
 		</main>
