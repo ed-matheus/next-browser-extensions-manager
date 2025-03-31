@@ -12,7 +12,7 @@ type ExtensionCardProps = {
 };
 
 const ExtensionCard: React.FC<ExtensionCardProps> = ({ name, description, icon, isActive }) => {
-	const [isOn, setIsOn] = useState(false);
+	const [isOn, setIsOn] = useState(true);
 
 	// console.log(`${name} | ${description} | ${icon} | ${isActive}`);
 
@@ -46,7 +46,7 @@ const ExtensionCard: React.FC<ExtensionCardProps> = ({ name, description, icon, 
 					<input
 						type="checkbox"
 						className="sr-only peer"
-						checked={isOn}
+						checked={isActive ? isOn : !isOn}
 						onChange={() => setIsOn(!isOn)}
 					/>
 					<div className="w-11 h-6 bg-gray-300 peer-checked:bg-red-700 rounded-full relative transition">
