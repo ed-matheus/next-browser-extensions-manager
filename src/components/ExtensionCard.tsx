@@ -9,51 +9,47 @@ type ExtensionCardProps = {
 	description: string;
 	icon: string;
 	isActive: boolean;
+	isDarkMode: boolean;
 };
 
-const ExtensionCard: React.FC<ExtensionCardProps> = ({ name, description, icon, isActive }) => {
+const ExtensionCard: React.FC<ExtensionCardProps> = ({
+	name,
+	description,
+	icon,
+	isActive,
+	isDarkMode,
+}) => {
 	const [isOn, setIsOn] = useState(true);
 
 	// console.log(`${name} | ${description} | ${icon} | ${isActive}`);
 
 	return (
-		<div className="p-5 bg-neutral-0 shadow rounded-2xl w-full mb-4">
+		<div className={`p-5 ${isDarkMode ? 'bg-neutral-800' : ''} shadow rounded-2xl w-full mb-4`}>
 			<div className="flex items-start">
-				<Image
-					src={icon}
-					alt="extension logo"
-					width={80}
-					height={80}
-				/>
+				<Image src={icon} alt="extension logo" width={80} height={80} />
 
 				<div className="ms-3.5">
-					<h2 className="font-bold text-2xl mb-2">{name}</h2>
-					<span className="text-neutral-500">
-						{description}
-					</span>
+					<h2 className={`font-bold text-2xl mb-2 ${isDarkMode ? 'text-neutral-0' : ''}`}>{name}</h2>
+					<span className={`${isDarkMode ? 'text-neutral-300' : 'text-neutral-500'}`}>{description}</span>
 				</div>
 			</div>
 
 			<div className="mt-6 flex justify-between items-center">
 				<button
 					type="button"
-					className="rounded-3xl border border-neutral-300 p-2 px-4"
+					className={`rounded-3xl border border-neutral-300 ${isDarkMode ? 'text-neutral-0' : ''} p-2 px-4 cursor-pointer`}
 				>
 					Remove
 				</button>
 
-				<label className="cursor-pointer">
+				<label className="inline-flex items-center cursor-pointer">
 					<input
 						type="checkbox"
 						className="sr-only peer"
 						checked={isActive ? isOn : !isOn}
 						onChange={() => setIsOn(!isOn)}
 					/>
-					<div className="w-11 h-6 bg-gray-300 peer-checked:bg-red-700 rounded-full relative transition">
-						<div
-							className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition ${isOn ? "translate-x-5" : ""}`}
-						/>
-					</div>
+					<div className={`relative w-11 h-6 ${isDarkMode ? 'bg-neutral-600' : 'bg-gray-300'} peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-neutral-0 after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all ${isDarkMode ? 'peer-checked:bg-red-400' : 'peer-checked:bg-red-700'}`} />
 				</label>
 			</div>
 		</div>

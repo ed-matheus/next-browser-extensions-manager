@@ -2,70 +2,102 @@
 
 import Image from "next/image";
 import data from "@/data.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Components
 import ExtensionCard from "../components/ExtensionCard";
 import FilterButton from "@/components/FilterButton";
 
 export default function Home() {
-	// Getting data from the data.json file
+	// Getting data from data.json file
 	const extensionData = data;
 
-  // States
+	// States
 	const [activeFilter, setActiveFilter] = useState("all");
-  const [filteredExtensions, setFilteredExtensions] = useState(extensionData)
+	const [filteredExtensions, setFilteredExtensions] = useState(extensionData);
+	const [isDarkMode, setIsDarkMode] = useState(false);
+
+	useEffect(() => {
+		const savedTheme = localStorage.getItem("theme") === "dark";
+		setIsDarkMode(savedTheme);
+		document.documentElement.classList.toggle("dark", savedTheme);
+	}, []);
+
+	const toggleDarkMode = () => {
+		setIsDarkMode((prevMode) => {
+			const newMode = !prevMode;
+			document.documentElement.classList.toggle("dark", newMode);
+			localStorage.setItem("theme", newMode ? "dark" : "light");
+			return newMode;
+		});
+	};
+
+	const colorMode = localStorage.getItem("theme")
+	// console.log(colorMode)
 
 	const handleExtensionsFilter = (filter: "all" | "active" | "inactive") => {
 		setActiveFilter(filter);
 
-		// Data filter logic
+		// Filtering Data
 		switch (filter) {
 			case "active":
-				return setFilteredExtensions(extensionData.filter((extension) => extension.isActive === true));
+				return setFilteredExtensions(
+					extensionData.filter((extension) => extension.isActive === true),
+				);
 			case "inactive":
-				return setFilteredExtensions(extensionData.filter((extension) => extension.isActive === false));
-      default:
-        return setFilteredExtensions(extensionData);
+				return setFilteredExtensions(
+					extensionData.filter((extension) => extension.isActive === false),
+				);
+			default:
+				return setFilteredExtensions(extensionData);
 		}
 	};
 
 	return (
-		<main className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-5 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gradient-to-b from-[#EBF2FC] to-[#EEF8F9]">
-			<header className="bg-neutral-0 rounded-xl p-3.5 mb-10 w-full flex items-center justify-between shadow">
+		<main className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-5 pb-20 gap-16 sm:p-20 font-[faily-name:var(--font-geist-sans)] ${isDarkMode ? "bg-gradient-to-b from-[#040918] to-[#091540]" : "bg-gradient-to-b from-[#EBF2FC] to-[#EEF8F9]"}`}>
+			<header className={`${isDarkMode ? "bg-neutral-800" : "bg-neutral-0"} rounded-xl p-3.5 mb-10 w-full flex items-center justify-between shadow`}>
 				<Image src={"/images/logo.svg"} alt="logo" width={200} height={200} />
-				<Image
-					src={"/images/icon-moon.svg"}
-					alt="color mode changer"
-					width={60}
-					height={60}
-					className="bg-neutral-100 p-4 rounded-xl"
-				/>
+				<button
+					type="button"
+					className="cursor-pointer"
+					onClick={toggleDarkMode}
+				>
+					<Image
+						src={isDarkMode ? "/images/icon-sun.svg" : "/images/icon-moon.svg"}
+						alt={isDarkMode ? "Dark mode" : "Light mode"}
+						className={`${isDarkMode ? "bg-neutral-700" : "bg-neutral-100"} p-4 rounded-xl w-[60] h-[60]`}
+						width={60}
+						height={60}
+					/>
+				</button>
 			</header>
 
-			{/* The filter */}
+			{/* Filtro */}
 			<div className="w-full text-center mb-10">
-				<h1 className="font-bold text-neutral-900">Extensions List</h1>
+				<h1 className={`${isDarkMode ? "text-neutral-0" : "text-neutral-900"} font-bold`}>Extensions List</h1>
 				<div className="flex justify-around">
 					<FilterButton
 						text="All"
 						isActive={activeFilter === "all"}
 						onClick={() => handleExtensionsFilter("all")}
+						isDarkMode={colorMode === 'dark' ? isDarkMode === true : false}
 					/>
 					<FilterButton
 						text="Active"
 						isActive={activeFilter === "active"}
 						onClick={() => handleExtensionsFilter("active")}
+						isDarkMode={colorMode === 'dark' ? isDarkMode === true : false}
 					/>
 					<FilterButton
 						text="Inactive"
 						isActive={activeFilter === "inactive"}
 						onClick={() => handleExtensionsFilter("inactive")}
+						isDarkMode={colorMode === 'dark' ? isDarkMode === true : false}
 					/>
 				</div>
 			</div>
 
-			{/* Displaying cards dinamically */}
+			{/* Renderização dinâmica dos cards */}
 			{filteredExtensions.map((extension) => (
 				<ExtensionCard
 					key={extension.id}
@@ -73,6 +105,7 @@ export default function Home() {
 					description={extension.description}
 					icon={extension.logo}
 					isActive={extension.isActive}
+					isDarkMode={colorMode === 'dark' ? isDarkMode === true : false}
 				/>
 			))}
 		</main>
