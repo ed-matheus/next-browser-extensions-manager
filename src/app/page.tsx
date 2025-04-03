@@ -57,6 +57,8 @@ export default function Home() {
 		<main className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-5 pb-20 gap-16 sm:p-20 font-[faily-name:var(--font-geist-sans)] ${isDarkMode ? "bg-gradient-to-b from-[#040918] to-[#091540]" : "bg-gradient-to-b from-[#EBF2FC] to-[#EEF8F9]"}`}>
 			<header className={`${isDarkMode ? "bg-neutral-800" : "bg-neutral-0"} rounded-xl p-3.5 mb-10 w-full flex items-center justify-between shadow`}>
 				<Image src={"/images/logo.svg"} alt="logo" width={200} height={200} />
+
+				{/* Theme changer button */}
 				<button
 					type="button"
 					className="cursor-pointer"
@@ -65,7 +67,7 @@ export default function Home() {
 					<Image
 						src={isDarkMode ? "/images/icon-sun.svg" : "/images/icon-moon.svg"}
 						alt={isDarkMode ? "Dark mode" : "Light mode"}
-						className={`${isDarkMode ? "bg-neutral-700" : "bg-neutral-100"} p-4 rounded-xl w-[60] h-[60]`}
+						className={`${isDarkMode ? "bg-neutral-700 hover:bg-neutral-600" : "bg-neutral-100 hover:bg-neutral-300"} p-4 rounded-xl w-[60] h-[60]`}
 						width={60}
 						height={60}
 					/>
@@ -98,16 +100,18 @@ export default function Home() {
 			</div>
 
 			{/* Renderização dinâmica dos cards */}
-			{filteredExtensions.map((extension) => (
-				<ExtensionCard
-					key={extension.id}
-					name={extension.name}
-					description={extension.description}
-					icon={extension.logo}
-					isActive={extension.isActive}
-					isDarkMode={colorMode === 'dark' ? isDarkMode === true : false}
-				/>
-			))}
+			<section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				{filteredExtensions.map((extension) => (
+					<ExtensionCard
+						key={extension.id}
+						name={extension.name}
+						description={extension.description}
+						icon={extension.logo}
+						isActive={extension.isActive}
+						isDarkMode={colorMode === 'dark' ? isDarkMode === true : false}
+					/>
+				))}
+			</section>
 		</main>
 	);
 }
