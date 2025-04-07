@@ -55,7 +55,7 @@ export default function Home() {
 
 	return (
 		<main className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-5 pb-20 gap-16 sm:p-20 font-[faily-name:var(--font-geist-sans)] ${isDarkMode ? "bg-gradient-to-b from-[#040918] to-[#091540]" : "bg-gradient-to-b from-[#EBF2FC] to-[#EEF8F9]"}`}>
-			<header className={`${isDarkMode ? "bg-neutral-800" : "bg-neutral-0"} rounded-xl p-3.5 mb-10 w-full flex items-center justify-between shadow`}>
+			<header className={`${isDarkMode ? "bg-neutral-800" : "bg-neutral-0"} rounded-xl p-3.5 mb-10 w-full flex items-center justify-between shadow lg:w-[52rem] xl:w-[77rem]`}>
 				<Image src={"/images/logo.svg"} alt="logo" width={200} height={200} />
 
 				{/* Theme changer button */}
@@ -75,9 +75,9 @@ export default function Home() {
 			</header>
 
 			{/* Filtro */}
-			<div className="w-full text-center mb-10">
+			<div className="w-full text-center mb-10 lg:flex lg:justify-between lg:w-[52rem] xl:w-[77rem]">
 				<h1 className={`${isDarkMode ? "text-neutral-0" : "text-neutral-900"} font-bold`}>Extensions List</h1>
-				<div className="flex justify-around">
+				<div className="flex justify-around lg:gap-5 lg:py-3 xl:gap-5 xl:py-4">
 					<FilterButton
 						text="All"
 						isActive={activeFilter === "all"}
@@ -100,7 +100,7 @@ export default function Home() {
 			</div>
 
 			{/* Renderização dinâmica dos cards */}
-			<section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 xl:w-[77rem]">
 				{filteredExtensions.map((extension) => (
 					<ExtensionCard
 						key={extension.id}

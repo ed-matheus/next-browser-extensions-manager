@@ -24,7 +24,7 @@ const ExtensionCard: React.FC<ExtensionCardProps> = ({
 	// console.log(`${name} | ${description} | ${icon} | ${isActive}`);
 
 	return (
-		<div className={`p-5 ${isDarkMode ? 'bg-neutral-800' : 'bg-neutral-0'} shadow rounded-2xl w-full`}>
+		<div className={`p-5 ${isDarkMode ? 'bg-neutral-800' : 'bg-neutral-0'} shadow rounded-2xl w-full lg:w-[20rem] xl:w-[25rem]`}>
 			<div className="flex items-start">
 				<Image src={icon} alt="extension logo" width={80} height={80} />
 
