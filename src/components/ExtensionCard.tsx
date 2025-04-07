@@ -10,6 +10,7 @@ type ExtensionCardProps = {
 	icon: string;
 	isActive: boolean;
 	isDarkMode: boolean;
+	onRemove: (name: string) => void;
 };
 
 const ExtensionCard: React.FC<ExtensionCardProps> = ({
@@ -18,6 +19,7 @@ const ExtensionCard: React.FC<ExtensionCardProps> = ({
 	icon,
 	isActive,
 	isDarkMode,
+	onRemove,
 }) => {
 	const [isOn, setIsOn] = useState(true);
 
@@ -38,6 +40,7 @@ const ExtensionCard: React.FC<ExtensionCardProps> = ({
 				<button
 					type="button"
 					className={`rounded-3xl border border-neutral-300 ${isDarkMode ? 'text-neutral-0 hover:bg-red-500 hover:border-neutral-700 hover:text-neutral-900' : 'hover:bg-red-700 hover:text-neutral-0'} p-2 px-4 cursor-pointer`}
+					onClick={() => onRemove(name)}
 				>
 					Remove
 				</button>

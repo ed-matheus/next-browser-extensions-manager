@@ -18,9 +18,14 @@ export default function Home() {
 	const [isDarkMode, setIsDarkMode] = useState(false);
 
 	useEffect(() => {
-		const savedTheme = localStorage.getItem("theme") === "dark";
-		setIsDarkMode(savedTheme);
-		document.documentElement.classList.toggle("dark", savedTheme);
+		const theme = localStorage.getItem("theme");
+		if (theme === "dark") {
+			setIsDarkMode(true);
+			document.documentElement.classList.add("dark");
+		} else {
+			setIsDarkMode(false);
+			document.documentElement.classList.remove("dark");
+		}
 	}, []);
 
 	const toggleDarkMode = () => {
@@ -52,6 +57,12 @@ export default function Home() {
 				return setFilteredExtensions(extensionData);
 		}
 	};
+
+	const handleRemoveExtension = (name: string) => {
+		setFilteredExtensions((prev) => 
+			prev.filter((extension) => extension.name !== name)
+		)
+	}
 
 	return (
 		<main className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-5 pb-20 gap-16 sm:p-20 font-[faily-name:var(--font-geist-sans)] ${isDarkMode ? "bg-gradient-to-b from-[#040918] to-[#091540]" : "bg-gradient-to-b from-[#EBF2FC] to-[#EEF8F9]"}`}>
@@ -109,6 +120,7 @@ export default function Home() {
 						icon={extension.logo}
 						isActive={extension.isActive}
 						isDarkMode={colorMode === 'dark' ? isDarkMode === true : false}
+						onRemove={handleRemoveExtension}
 					/>
 				))}
 			</section>
