@@ -15,7 +15,7 @@ Users is able to:
 
 ### Screenshot
 
-![](/images/screenshot.jpg)
+![Design preview for the Browser Extensions Page](./images/screenshot.png)
 
 ### Links
 
