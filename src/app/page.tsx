@@ -8,14 +8,6 @@ import { useEffect, useState } from "react";
 import ExtensionCard from "../components/ExtensionCard";
 import FilterButton from "@/components/FilterButton";
 
-interface Extension {
-  id: number;
-  name: string;
-  description: string;
-  logo: string;
-  isActive: boolean;
-}
-
 export default function Home() {
   // Getting data from data.json file
   const extensionData = data;
