@@ -65,7 +65,7 @@ export default function Home() {
   }
 
   return (
-    <main className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-5 pb-20 gap-16 sm:p-20 font-[faily-name:var(--font-geist-sans)] ${isDarkMode ? "bg-gradient-to-b from-[#040918] to-[#091540]" : "bg-gradient-to-b from-[#EBF2FC] to-[#EEF8F9]"}`}>
+    <main className={`items-center justify-items-center min-h-screen p-5 pb-20 gap-16 sm:p-20 font-[faily-name:var(--font-geist-sans)] ${isDarkMode ? "bg-gradient-to-b from-[#040918] to-[#091540]" : "bg-gradient-to-b from-[#EBF2FC] to-[#EEF8F9]"}`}>
       <header className={`${isDarkMode ? "bg-neutral-800" : "bg-neutral-0"} rounded-xl p-3.5 mb-10 w-full flex items-center justify-between shadow lg:w-[52rem] xl:w-[77rem]`}>
         <Image src={"/images/logo.svg"} alt="logo" width={200} height={200} />
 
